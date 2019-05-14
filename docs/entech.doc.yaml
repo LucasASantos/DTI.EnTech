@@ -10,3 +10,33 @@ paths:
       responses:
         '200':
           description: OK
+components:
+  schemas:
+    Emquete:
+      type: object
+      required: {}
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+        titulo:
+          type: string
+          example: 'Projetos da parceria PUC/DTI'
+        data:
+          type: string
+          format: date
+          example: '2019-05-14'
+
+
+
+
+
+      # requestBody:
+      #   content:
+      #     application/json:
+      #       schema:
+      #         $ref: '#/components/schemas/Emquete'
+        
+        
+        
