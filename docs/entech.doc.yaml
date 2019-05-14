@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: "EnTech"
+  version: "1.0.0"
+paths:
+  /Enquete:
+    get:
+      operationId: getEnquete
+      summary: Obter Enquetes
+      responses:
+        '200':
+          description: OK
