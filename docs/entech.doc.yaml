@@ -2,19 +2,125 @@ openapi: 3.0.0
 info:
   title: "EnTech"
   version: "1.0.0"
+tags: 
+- name: Enquetes
 paths:
-  /Enquete:
+  /Enquetes:
     get:
-      operationId: getEnquete
+      tags: 
+        - "Enquetes"
+      operationId: getEnquetes
       summary: Obter Enquetes
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Emquete'
+          description: OK
+        '400': 
+          description: Erro interno
+    post:
+      tags: 
+          - "Enquetes"
+      operationId: postEnquetes
+      summary: Criar Enquete
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Emquete'
+      responses:
+        '201':
+          description: Enquete criada
+        '400': 
+          description: Erro interno
+    put:
+      tags: 
+          - "Enquetes"
+      operationId: putEnquetes
+      summary: Alterar Enquete
+      parameters:
+        - in: query
+          name: id
+          description: Id da enquete
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Emquete'
+      responses:
+        '200':
+          description: Enquete alterada
+        '400': 
+          description: Erro interno
+        '404': 
+          description: Enquete não encontrada
+    delete:
+      tags: 
+          - "Enquetes"
+      operationId: deleteEnquetes
+      summary: Deletar Enquete
+      parameters:
+        - in: query
+          name: id
+          description: Id da enquete
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+      responses:
+        '200':
+          description: Enquete deletada
+        '400': 
+          description: Erro interno
+        '404': 
+          description: Enquete não encontrada 
+
+  /Enquetes/:
+    get:
+      tags: 
+        - "Enquetes"
+      operationId: getEnquetesById
+      summary: Obter Enquetes
+      parameters:
+        - in: query
+          name: id
+          description: Id da enquete
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Emquete'
           description: OK
 components:
   schemas:
     Emquete:
       type: object
-      required: {}
+      required: 
+        - titulo
+        - data
+        - horaInicio
+        - horaFim
+        - endereco
+        - cidade
+        - estado
       properties:
         id:
           type: string
@@ -27,16 +133,28 @@ components:
           type: string
           format: date
           example: '2019-05-14'
-
-
-
-
-
-      # requestBody:
-      #   content:
-      #     application/json:
-      #       schema:
-      #         $ref: '#/components/schemas/Emquete'
-        
-        
-        
+        horaInicio:
+          type: string
+          format: date-time
+          example: 'T13:00:00'
+        horaFim:
+          type: string
+          format: date-time
+          example: 'T15:00:00'
+        endereco:
+          type: string
+          example: 'Rua dos Bobos, Nº 0'
+        cidade:
+          type: string
+          example: 'Belo Horizonte'
+        estado:
+          type: string
+          minLength: 2
+          maxLength: 2
+          example: 'MG'
+        imagem:
+          type: string
+          example: 'https://api.com.br/imagem_id'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/LucasASantos/EnTech/1.0.0
