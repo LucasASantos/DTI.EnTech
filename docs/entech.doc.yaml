@@ -18,7 +18,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Emquete'
+                  $ref: '#/components/schemas/Enquete'
           description: OK
         '400': 
           description: Erro interno
@@ -31,7 +31,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Emquete'
+              $ref: '#/components/schemas/Enquete'
       responses:
         '201':
           description: Enquete criada
@@ -57,7 +57,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Emquete'
+                $ref: '#/components/schemas/Enquete'
         responses:
           '200':
             description: Enquete alterada
@@ -105,11 +105,11 @@ paths:
                 schema:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Emquete'
+                    $ref: '#/components/schemas/Enquete'
             description: OK
 components:
   schemas:
-    Emquete:
+    Enquete:
       type: object
       required: 
         - titulo
