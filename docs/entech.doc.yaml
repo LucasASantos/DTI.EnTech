@@ -3,12 +3,12 @@ info:
   title: "EnTech"
   version: "1.0.0"
 tags: 
-- name: Enquetes
+- name: Surveys
 paths:
-  /Enquetes:
+  /Surveys:
     get:
       tags: 
-        - "Enquetes"
+        - "Surveys"
       operationId: getEnquetes
       summary: Obter Enquetes
       responses:
@@ -24,7 +24,7 @@ paths:
           description: Erro interno
     post:
       tags: 
-          - "Enquetes"
+          - "Surveys"
       operationId: postEnquetes
       summary: Criar Enquete
       requestBody: 
@@ -39,14 +39,14 @@ paths:
           description: Erro interno
 
 
-  /Enquetes/{enqueteId}:
+  /Surveys/{surveysId}:
       put:
         tags: 
-            - "Enquetes"
+            - "Surveys"
         operationId: putEnquetes
         summary: Alterar Enquete
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -67,11 +67,11 @@ paths:
             description: Enquete não encontrada
       delete:
         tags: 
-            - "Enquetes"
+            - "Surveys"
         operationId: deleteEnquetes
         summary: Deletar Enquete
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -87,11 +87,11 @@ paths:
             description: Enquete não encontrada 
       get:
         tags: 
-          - "Enquetes"
+          - "Surveys"
         operationId: getEnquetesById
         summary: Obter Enquetes
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -113,72 +113,72 @@ components:
       type: object
       required: 
         - title
-        - data
-        - horaInicio
-        - horaFim
-        - endereco
-        - cidade
-        - estado
+        - date
+        - startTime
+        - endTime
+        - address
+        - city
+        - state
       properties:
         id:
           type: integer
           format: int64
           example: '123456'
-        titile:
+        title:
           type: string
           example: 'Projetos da parceria PUC/DTI'
-        data:
+        date:
           type: string
           format: date
           example: '2019-05-14'
-        horaInicio:
+        startTime:
           type: string
           format: date-time
           example: 'T13:00:00'
-        horaFim:
+        endTime:
           type: string
           format: date-time
           example: 'T15:00:00'
-        endereco:
+        address:
           type: string
           example: 'Rua dos Bobos, Nº 0'
-        cidade:
+        city:
           type: string
           example: 'Belo Horizonte'
-        estado:
+        state:
           type: string
           minLength: 2
           maxLength: 2
           example: 'MG'
-        imagem:
+        photoURL:
           type: string
           example: 'https://api.com.br/imagem_id'
     users:
       required:
-      - nome
-      - tipo
+      - name
+      - type
       - email
-      - senha
-      - imagem
+      - password
+      - photoURL
       - status
       type: object
       properties:
         id:
           type: integer
           format: int64
-        nome:
+        name:
           type: string
           example: Alex Martins
-        tipo:
+        type:
           type: string
           example: Organizador
         email:
           type: string
           example: alex@entech.com.br
-        senha:
+        password:
           type: string
           example: tecweb2019
-        imagem:
+        photoURL:
           type: string
           example: https://api.com.br/imagem_id
 servers:
