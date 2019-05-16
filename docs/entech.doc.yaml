@@ -112,7 +112,7 @@ components:
     Enquete:
       type: object
       required: 
-        - titulo
+        - title
         - data
         - horaInicio
         - horaFim
@@ -124,7 +124,7 @@ components:
           type: integer
           format: int64
           example: '123456'
-        titulo:
+        titile:
           type: string
           example: 'Projetos da parceria PUC/DTI'
         data:
