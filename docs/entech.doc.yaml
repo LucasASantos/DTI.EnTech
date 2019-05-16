@@ -113,7 +113,7 @@ components:
       type: object
       required: 
         - titulo
-        - data
+        - date
         - horaInicio
         - horaFim
         - endereco
@@ -127,7 +127,7 @@ components:
         titulo:
           type: string
           example: 'Projetos da parceria PUC/DTI'
-        data:
+        date:
           type: string
           format: date
           example: '2019-05-14'
