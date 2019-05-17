@@ -1,16 +1,18 @@
 openapi: 3.0.0
 info:
   title: "EnTech"
+  description: 'EnTech API'
   version: "1.0.0"
 tags: 
 - name: Surveys
+- name: Users
 paths:
-  /Surveys:
+  /surveys:
     get:
       tags: 
         - "Surveys"
       operationId: getEnquetes
-      summary: Obter Enquetes
+      summary: Return a list of Surveys
       responses:
         '200':
           content:
@@ -18,7 +20,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Enquete'
+                  $ref: '#/components/schemas/survey'
           description: OK
         '400': 
           description: Erro interno
@@ -26,25 +28,23 @@ paths:
       tags: 
           - "Surveys"
       operationId: postEnquetes
-      summary: Criar Enquete
+      summary: Create a Survey
       requestBody: 
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Enquete'
+              $ref: '#/components/schemas/survey'
       responses:
         '201':
           description: Enquete criada
         '400': 
           description: Erro interno
-
-
-  /Surveys/{surveysId}:
+  /surveys/{surveysId}:
       put:
         tags: 
             - "Surveys"
         operationId: putEnquetes
-        summary: Alterar Enquete
+        summary: Update survey
         parameters:
           - name: surveysId
             in: path
@@ -57,7 +57,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Enquete'
+                $ref: '#/components/schemas/survey'
         responses:
           '200':
             description: Enquete alterada
@@ -69,7 +69,7 @@ paths:
         tags: 
             - "Surveys"
         operationId: deleteEnquetes
-        summary: Deletar Enquete
+        summary: Delete survey
         parameters:
           - name: surveysId
             in: path
@@ -89,7 +89,7 @@ paths:
         tags: 
           - "Surveys"
         operationId: getEnquetesById
-        summary: Obter Enquetes
+        summary: Return a survey 
         parameters:
           - name: surveysId
             in: path
@@ -105,11 +105,89 @@ paths:
                 schema:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Enquete'
+                    $ref: '#/components/schemas/survey'
             description: OK
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: Return a list of users
+      operationId: getUser
+      responses:
+        200:
+          description: Successful requisition
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/users'
+                    
+    post:
+      tags:
+        - "Users"
+      summary: Add user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users'
+      responses:
+        200:
+          description: Successful requisition
+  /users/{userId}:
+    get:
+      tags:
+        - "Users"
+      summary: Find an user by ID
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        description: Return an user ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+        - "Users"
+      summary: Update an user by ID
+      operationId: updateUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Update an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+          200:
+            description: Successful requisition
+    delete:
+      tags:
+        - "Users"
+      summary: Delete an user by ID
+      operationId: deleteUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Delete an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
 components:
   schemas:
-    Enquete:
+    survey:
       type: object
       required: 
         - title
