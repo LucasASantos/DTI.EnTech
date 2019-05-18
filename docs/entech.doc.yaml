@@ -6,6 +6,7 @@ info:
 tags: 
 - name: Surveys
 - name: Users
+- name: TeachShots
 paths:
   /surveys:
     get:
@@ -185,6 +186,93 @@ paths:
       responses:
         200:
           description: Successful requisition
+  /teachshot:
+    post:
+      tags:
+      - "TeachShots"
+      summary: Create teachShots
+      operationId: insetTeachShot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/teachshot'
+              
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+      - "TeachShots"
+      summary: Update teachShots
+      operationId: updateTeachShot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/teachshot'
+      responses:
+        200:
+          description: Successful requisition
+  /teachshot/{surveyId}:
+    get:
+      tags:
+      - "TeachShots"
+      summary: Return list of teachShots
+      operationId: getTeachShotByUserId
+      parameters:
+      - name: "surveyId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: Successful requisition
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:  
+                  $ref: '#/components/schemas/teachshot'
+    delete:
+        tags:
+        - "TeachShots"
+        summary: Delet a teachShots
+        operationId: deleteTeachShotById
+        parameters:
+        - name: "surveyId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/teachshot'
+  /teachshot/{userId}:
+    get:
+      tags:
+      - "TeachShots"
+      summary: Return a teachShots by id
+      operationId: getTeachShotById
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: Successful requisition
+  
+
+      
 components:
   schemas:
     survey:
@@ -228,7 +316,7 @@ components:
           minLength: 2
           maxLength: 2
           example: 'MG'
-        photoURL:
+        photoUrl:
           type: string
           example: 'https://api.com.br/imagem_id'
     users:
@@ -237,7 +325,6 @@ components:
       - type
       - email
       - password
-      - photoURL
       - status
       type: object
       properties:
@@ -259,6 +346,36 @@ components:
         photoURL:
           type: string
           example: https://api.com.br/imagem_id
+    teachshot:
+      required:
+      - title
+      - duration
+      - surveyId
+      - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          example: Introdução a React
+        duration:
+          type: integer
+        photoUrl:
+          type: string
+          example: https://api.com.br/imagem_id
+        keywords:
+          type: array
+          example: ["react", "front-end", "desenvolvimento"]
+          items:
+            type: string
+        surveyId: 
+          type: integer
+          format: int64
+        userId: 
+          type: integer
+          format: int64
 servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/LucasASantos/EnTech/1.0.0
