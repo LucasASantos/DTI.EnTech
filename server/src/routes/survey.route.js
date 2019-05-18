@@ -1,11 +1,11 @@
 const route = require('express').Router();
-const {criateSurvey} = require('../controllers/survey.controller')
+const controller = require('../controllers/survey.controller')
 
-route.get('/surveys', (req,res)=>{res.send('ok')});
-route.post('/surveys', criateSurvey), 
-
-
-
+route.get('/surveys', controller.listSurveys);
+route.get('/surveys/:id', controller.getSurvey);
+route.post('/surveys', controller.criateSurvey);
+route.put('/surveys/:id', controller.updateSurvey);
+route.delete('/surveys/:id', controller.deleteSurvey);
 
 
 module.exports = route;
