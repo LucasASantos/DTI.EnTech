@@ -235,6 +235,26 @@ paths:
                 type: array
                 items:  
                   $ref: '#/components/schemas/teachshot'
+    delete:
+        tags:
+        - "TeachShots"
+        summary: Delet a teachShots
+        operationId: deleteTeachShotById
+        parameters:
+        - name: "surveyId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/teachshot'
   /teachshot/{userId}:
     get:
       tags:
@@ -250,26 +270,7 @@ paths:
       responses:
         200:
           description: Successful requisition
-    delete:
-      tags:
-      - "TeachShots"
-      summary: Delet a teachShots
-      operationId: deleteTeachShotById
-      parameters:
-      - name: "surveyId"
-        in: "path"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: Successful requisition
-          content:
-            aplication/json:
-              schema:
-                type: array
-                items:  
-                  $ref: '#/components/schemas/teachshot'
+  
 
       
 components:
