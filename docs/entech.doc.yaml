@@ -201,16 +201,57 @@ paths:
       responses:
         200:
           description: Successful requisition
+  /teachshot/{id}:
     put:
       tags:
       - "TeachShots"
       summary: Update teachShots
       operationId: updateTeachShot
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/teachshot'
+      responses:
+        200:
+          description: Successful requisition
+    delete:
+        tags:
+        - "TeachShots"
+        summary: Delet a teachShots
+        operationId: deleteTeachShotById
+        parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/teachshot'
+    get:
+      tags:
+      - "TeachShots"
+      summary: Return a teachShots by id
+      operationId: getTeachShotById
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
       responses:
         200:
           description: Successful requisition
@@ -235,41 +276,6 @@ paths:
                 type: array
                 items:  
                   $ref: '#/components/schemas/teachshot'
-    delete:
-        tags:
-        - "TeachShots"
-        summary: Delet a teachShots
-        operationId: deleteTeachShotById
-        parameters:
-        - name: "surveyId"
-          in: "path"
-          required: true
-          type: "integer"
-          format: "int64"
-        responses:
-          200:
-            description: Successful requisition
-            content:
-              aplication/json:
-                schema:
-                  type: array
-                  items:  
-                    $ref: '#/components/schemas/teachshot'
-  /teachshot/{userId}:
-    get:
-      tags:
-      - "TeachShots"
-      summary: Return a teachShots by id
-      operationId: getTeachShotById
-      parameters:
-      - name: "userId"
-        in: "path"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: Successful requisition
   
 
       
