@@ -278,15 +278,6 @@ components:
     survey:
       type: object
       required: 
-<<<<<<< HEAD
-        - titulo
-        - date
-        - horaInicio
-        - horaFim
-        - endereco
-        - cidade
-        - estado
-=======
         - title
         - date
         - startTime
@@ -294,7 +285,6 @@ components:
         - address
         - city
         - state
->>>>>>> 4ce3cd9e213c2129bcc4f45d531e7a58099599ce
       properties:
         id:
           type: integer
