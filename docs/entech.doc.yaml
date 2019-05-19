@@ -1,16 +1,19 @@
 openapi: 3.0.0
 info:
   title: "EnTech"
+  description: 'EnTech API'
   version: "1.0.0"
 tags: 
-- name: Enquetes
+- name: Surveys
+- name: Users
+- name: TeachShots
 paths:
-  /Enquetes:
+  /surveys:
     get:
       tags: 
-        - "Enquetes"
+        - "Surveys"
       operationId: getEnquetes
-      summary: Obter Enquetes
+      summary: Return a list of Surveys
       responses:
         '200':
           content:
@@ -18,35 +21,33 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Enquete'
+                  $ref: '#/components/schemas/survey'
           description: OK
         '400': 
           description: Erro interno
     post:
       tags: 
-          - "Enquetes"
+          - "Surveys"
       operationId: postEnquetes
-      summary: Criar Enquete
+      summary: Create a Survey
       requestBody: 
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Enquete'
+              $ref: '#/components/schemas/survey'
       responses:
         '201':
           description: Enquete criada
         '400': 
           description: Erro interno
-
-
-  /Enquetes/{enqueteId}:
+  /surveys/{surveysId}:
       put:
         tags: 
-            - "Enquetes"
+            - "Surveys"
         operationId: putEnquetes
-        summary: Alterar Enquete
+        summary: Update survey
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -57,7 +58,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Enquete'
+                $ref: '#/components/schemas/survey'
         responses:
           '200':
             description: Enquete alterada
@@ -67,11 +68,11 @@ paths:
             description: Enquete não encontrada
       delete:
         tags: 
-            - "Enquetes"
+            - "Surveys"
         operationId: deleteEnquetes
-        summary: Deletar Enquete
+        summary: Delete survey
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -87,11 +88,11 @@ paths:
             description: Enquete não encontrada 
       get:
         tags: 
-          - "Enquetes"
+          - "Surveys"
         operationId: getEnquetesById
-        summary: Obter Enquetes
+        summary: Return a survey 
         parameters:
-          - name: enqueteId
+          - name: surveysId
             in: path
             description: Identifier for Survey
             required: true
@@ -105,13 +106,179 @@ paths:
                 schema:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Enquete'
+                    $ref: '#/components/schemas/survey'
             description: OK
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: Return a list of users
+      operationId: getUser
+      responses:
+        200:
+          description: Successful requisition
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/users'
+                    
+    post:
+      tags:
+        - "Users"
+      summary: Add user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users'
+      responses:
+        200:
+          description: Successful requisition
+  /users/{userId}:
+    get:
+      tags:
+        - "Users"
+      summary: Find an user by ID
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        description: Return an user ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+        - "Users"
+      summary: Update an user by ID
+      operationId: updateUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Update an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+          200:
+            description: Successful requisition
+    delete:
+      tags:
+        - "Users"
+      summary: Delete an user by ID
+      operationId: deleteUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Delete an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+  /teachshot:
+    post:
+      tags:
+      - "TeachShots"
+      summary: Create teachShots
+      operationId: insetTeachShot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/teachshot'
+              
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+      - "TeachShots"
+      summary: Update teachShots
+      operationId: updateTeachShot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/teachshot'
+      responses:
+        200:
+          description: Successful requisition
+  /teachshot/{surveyId}:
+    get:
+      tags:
+      - "TeachShots"
+      summary: Return list of teachShots
+      operationId: getTeachShotByUserId
+      parameters:
+      - name: "surveyId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: Successful requisition
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:  
+                  $ref: '#/components/schemas/teachshot'
+    delete:
+        tags:
+        - "TeachShots"
+        summary: Delet a teachShots
+        operationId: deleteTeachShotById
+        parameters:
+        - name: "surveyId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/teachshot'
+  /teachshot/{userId}:
+    get:
+      tags:
+      - "TeachShots"
+      summary: Return a teachShots by id
+      operationId: getTeachShotById
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: Successful requisition
+  
+
+      
 components:
   schemas:
-    Enquete:
+    survey:
       type: object
       required: 
+<<<<<<< HEAD
         - titulo
         - date
         - horaInicio
@@ -119,68 +286,106 @@ components:
         - endereco
         - cidade
         - estado
+=======
+        - title
+        - date
+        - startTime
+        - endTime
+        - address
+        - city
+        - state
+>>>>>>> 4ce3cd9e213c2129bcc4f45d531e7a58099599ce
       properties:
         id:
           type: integer
           format: int64
           example: '123456'
-        titulo:
+        title:
           type: string
           example: 'Projetos da parceria PUC/DTI'
         date:
           type: string
           format: date
           example: '2019-05-14'
-        horaInicio:
+        startTime:
           type: string
           format: date-time
           example: 'T13:00:00'
-        horaFim:
+        endTime:
           type: string
           format: date-time
           example: 'T15:00:00'
-        endereco:
+        address:
           type: string
           example: 'Rua dos Bobos, Nº 0'
-        cidade:
+        city:
           type: string
           example: 'Belo Horizonte'
-        estado:
+        state:
           type: string
           minLength: 2
           maxLength: 2
           example: 'MG'
-        imagem:
+        photoUrl:
           type: string
           example: 'https://api.com.br/imagem_id'
     users:
       required:
-      - nome
-      - tipo
+      - name
+      - type
       - email
-      - senha
-      - imagem
+      - password
       - status
       type: object
       properties:
         id:
           type: integer
           format: int64
-        nome:
+        name:
           type: string
           example: Alex Martins
-        tipo:
+        type:
           type: string
           example: Organizador
         email:
           type: string
           example: alex@entech.com.br
-        senha:
+        password:
           type: string
           example: tecweb2019
-        imagem:
+        photoURL:
           type: string
           example: https://api.com.br/imagem_id
+    teachshot:
+      required:
+      - title
+      - duration
+      - surveyId
+      - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          example: Introdução a React
+        duration:
+          type: integer
+        photoUrl:
+          type: string
+          example: https://api.com.br/imagem_id
+        keywords:
+          type: array
+          example: ["react", "front-end", "desenvolvimento"]
+          items:
+            type: string
+        surveyId: 
+          type: integer
+          format: int64
+        userId: 
+          type: integer
+          format: int64
 servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/LucasASantos/EnTech/1.0.0
