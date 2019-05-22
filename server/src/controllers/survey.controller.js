@@ -52,7 +52,7 @@ async function updateSurvey(req,res) {
 
         survey = formatDateSurvey(survey);
 
-        await surveyRepository.update({"_id": req.params.id}, survey)
+        await surveyRepository.updateOne({"_id": req.params.id}, survey)
 
         res.status(200).send("Enquete alterda com sucesso")
         
