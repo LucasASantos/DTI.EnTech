@@ -38,6 +38,10 @@ const surveySchema = {
             "maxLength": 2,
             "description": "MG"
         },
+        "userId":{
+            "type":"any",
+            "description": ""
+        },
         "photoURL":{
             "type": "string",
             "description": "https://api.com.br/imagem_id"
@@ -50,6 +54,7 @@ const surveySchema = {
         "endTime",
         "address",
         "city",
+        "userId",
         "state"
     ]
 }

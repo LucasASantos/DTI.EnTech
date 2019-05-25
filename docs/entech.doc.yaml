@@ -291,6 +291,7 @@ components:
         - address
         - city
         - state
+        - userId
       properties:
         id:
           type: integer
@@ -325,6 +326,9 @@ components:
         photoUrl:
           type: string
           example: 'https://api.com.br/imagem_id'
+        userId: 
+          type: integer
+          format: int64
     users:
       required:
       - name

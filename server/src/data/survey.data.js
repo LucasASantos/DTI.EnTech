@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports= mongoose.model('Survey',{    
     title: String,
@@ -7,6 +8,7 @@ module.exports= mongoose.model('Survey',{
     endTime: Date,
     address: String,
     city: String,
+    userId: ObjectId,
     state: {type: String, minlength: 2, maxlength:2},
     photoURL: String
 });

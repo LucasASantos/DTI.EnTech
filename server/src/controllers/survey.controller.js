@@ -4,7 +4,7 @@ const surveyRepository = require('../data/survey.data');
 const moment = require('moment');
 
 
-async function criateSurvey(req, res) {
+async function createSurvey(req, res) {
     
     try {
         var survey = req.body;
@@ -89,7 +89,7 @@ function formatDateSurvey(survey){
 
 
 module.exports = {
-    criateSurvey,
+    createSurvey,
     listSurveys,
     getSurvey,
     updateSurvey,
