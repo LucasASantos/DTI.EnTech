@@ -6,7 +6,8 @@ info:
 tags: 
 - name: Surveys
 - name: Users
-- name: techshots
+- name: Techshots
+- name: Polls
 paths:
   /surveys:
     get:
@@ -122,8 +123,7 @@ paths:
                 schema:
                   type: array
                   items:
-                    $ref: '#/components/schemas/users'
-                    
+                    $ref: '#/components/schemas/users'  
     post:
       tags:
         - "Users"
@@ -189,7 +189,7 @@ paths:
   /techshots:
     post:
       tags:
-      - "techshots"
+      - "Techshots"
       summary: Create techshots
       operationId: insettechshot
       requestBody:
@@ -204,9 +204,9 @@ paths:
   /techshots/{id}:
     put:
       tags:
-      - "techshots"
+      - "Techshots"
       summary: Update techshots
-      operationId: updatetechshot
+      operationId: updateTechshot
       parameters:
       - name: "id"
         in: "path"
@@ -224,7 +224,7 @@ paths:
           description: Successful requisition
     delete:
         tags:
-        - "techshots"
+        - "Techshots"
         summary: Delet a techshots
         operationId: deletetechshotById
         parameters:
@@ -245,7 +245,7 @@ paths:
                     $ref: '#/components/schemas/techshots'
     get:
       tags:
-      - "techshots"
+      - "Techshots"
       summary: Return a techshots by id
       operationId: gettechshotById
       parameters:
@@ -261,7 +261,7 @@ paths:
   /techshots/{surveyId}:
     get:
       tags:
-      - "techshots"
+      - "Techshots"
       summary: Return list of techshots
       operationId: gettechshotByUserId
       parameters:
@@ -294,49 +294,29 @@ paths:
       responses:
         200:
           description: Successful requisition
-  /polls/{id}:
+  /polls/{techShotId}:
     get:
       tags:
       - "Polls"
       summary: Return a poll by ID
-      operationId: getPollById
+      operationId: getPollByTechShotId
       parameters:
-      - name: "id"
+      - name: "techShotId"
         in: "path"
         required: true
         schema:
           type: integer
           format: int64
-      responses:
-        200:
-          description: Successful requisition
-    put:
-      tags:
-      - "Polls"
-      summary: Update poll
-      operationId: updatePoll
-      parameters:
-      - name: "id"
-        in: "path"
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/polls'
       responses:
         200:
           description: Successful requisition
     delete:
         tags:
         - "Polls"
-        summary: Delete a poll
-        operationId: deletePollById
+        summary: Delete a poll by ID
+        operationId: deletePollByTechShotId
         parameters:
-        - name: "id"
+        - name: "techShotId"
           in: "path"
           required: true
           schema:
