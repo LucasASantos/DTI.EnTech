@@ -3,18 +3,6 @@ const pollModel = require('../models/poll.model');
 const pollRepository = require('../data/poll.data');
 const moment = require('moment');
 
-async function getPoll(req, res) {
-    try {
-        var dados = await pollRepository.findById(req.params.id);
-        res.json(dados);
-    } catch (err) {
-        if (err.name == 'CastError') {
-            res.status(404).send('Votação não encontrada')
-        }
-        res.status(400).send(err.message);
-    }
-}
-
 async function createPoll(req, res) {
     
     try {
@@ -31,16 +19,10 @@ async function createPoll(req, res) {
     }
 }
 
-async function updatePoll(req, res) {
+async function getPollByTechShotId(req, res) {
     try {
-        var poll = req.body;
-
-        validateSchema(poll, pollModel);
-
-        await pollRepository.update({ "_id": req.params.id }, poll)
-
-        res.status(200).send("Votação alterada com sucesso")
-
+        var dados = await pollRepository.findById({"techShotId": req.params.techShotId});
+        res.json(dados);
     } catch (err) {
         if (err.name == 'CastError') {
             res.status(404).send('Votação não encontrada')
@@ -49,9 +31,9 @@ async function updatePoll(req, res) {
     }
 }
 
-async function deletePoll(req, res){
+async function deletePollByTechShotId(req, res){
     try {
-        await pollRepository.deleteOne({"_id": req.params.id});
+        await pollRepository.deleteOne({"techShotId": req.params.techShotId});
 
         res.status(200).send('Voto deletado com sucesso');
     } catch (err) {
@@ -68,8 +50,8 @@ function validateSchema(obj, model){
 }
 
 module.exports = {
-    getPoll,
+
     createPoll,
-    updatePoll,
-    deletePoll
+    getPollByTechShotId,
+    deletePollByTechShotId
 }
