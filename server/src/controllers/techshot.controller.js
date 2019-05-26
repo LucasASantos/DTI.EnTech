@@ -80,7 +80,6 @@ function validateSchema(obj, model){
     }
 }
 
-
 module.exports = {
     createTecchshot,
     listTechshotBySurveyId,
