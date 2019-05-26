@@ -4,7 +4,7 @@ const techshotRepository = require('../data/techshot.data');
 const moment = require('moment');
 
 
-async function createTecchshot(req, res) {
+async function createTechshot(req, res) {
     
     try {
         var techshot = req.body;
@@ -80,9 +80,8 @@ function validateSchema(obj, model){
     }
 }
 
-
 module.exports = {
-    createTecchshot,
+    createTechshot,
     listTechshotBySurveyId,
     getTechshot,
     updateTechshot,

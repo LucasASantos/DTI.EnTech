@@ -6,7 +6,8 @@ info:
 tags: 
 - name: Surveys
 - name: Users
-- name: TeachShots
+- name: Techshots
+- name: Polls
 paths:
   /surveys:
     get:
@@ -122,8 +123,7 @@ paths:
                 schema:
                   type: array
                   items:
-                    $ref: '#/components/schemas/users'
-                    
+                    $ref: '#/components/schemas/users'  
     post:
       tags:
         - "Users"
@@ -186,27 +186,27 @@ paths:
       responses:
         200:
           description: Successful requisition
-  /teachshot:
+  /techshots:
     post:
       tags:
-      - "TeachShots"
-      summary: Create teachShots
-      operationId: insetTeachShot
+      - "Techshots"
+      summary: Create techshots
+      operationId: insettechshot
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/teachshot'
+              $ref: '#/components/schemas/techshots'
               
       responses:
         200:
           description: Successful requisition
-  /teachshot/{id}:
+  /techshots/{id}:
     put:
       tags:
-      - "TeachShots"
-      summary: Update teachShots
-      operationId: updateTeachShot
+      - "Techshots"
+      summary: Update techshots
+      operationId: updateTechshot
       parameters:
       - name: "id"
         in: "path"
@@ -218,15 +218,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/teachshot'
+              $ref: '#/components/schemas/techshots'
       responses:
         200:
           description: Successful requisition
     delete:
         tags:
-        - "TeachShots"
-        summary: Delet a teachShots
-        operationId: deleteTeachShotById
+        - "Techshots"
+        summary: Delet a techshots
+        operationId: deletetechshotById
         parameters:
         - name: "id"
           in: "path"
@@ -242,12 +242,12 @@ paths:
                 schema:
                   type: array
                   items:  
-                    $ref: '#/components/schemas/teachshot'
+                    $ref: '#/components/schemas/techshots'
     get:
       tags:
-      - "TeachShots"
-      summary: Return a teachShots by id
-      operationId: getTeachShotById
+      - "Techshots"
+      summary: Return a techshots by id
+      operationId: gettechshotById
       parameters:
       - name: "id"
         in: "path"
@@ -258,12 +258,12 @@ paths:
       responses:
         200:
           description: Successful requisition
-  /teachshot/{surveyId}:
+  /techshots/{surveyId}:
     get:
       tags:
-      - "TeachShots"
-      summary: Return list of teachShots
-      operationId: getTeachShotByUserId
+      - "Techshots"
+      summary: Return list of techshots
+      operationId: gettechshotByUserId
       parameters:
       - name: "surveyId"
         in: "path"
@@ -279,10 +279,58 @@ paths:
               schema:
                 type: array
                 items:  
-                  $ref: '#/components/schemas/teachshot'
-  
-
-      
+                  $ref: '#/components/schemas/techshots'
+  /polls:                
+    post:
+      tags:
+        - "Polls"
+      summary: Add poll
+      operationId: addPoll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/polls'
+      responses:
+        200:
+          description: Successful requisition
+  /polls/{techShotId}:
+    get:
+      tags:
+      - "Polls"
+      summary: Return a poll by ID
+      operationId: getPollByTechShotId
+      parameters:
+      - name: "techShotId"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    delete:
+        tags:
+        - "Polls"
+        summary: Delete a poll by ID
+        operationId: deletePollByTechShotId
+        parameters:
+        - name: "techShotId"
+          in: "path"
+          required: true
+          schema:
+            type: integer
+            format: int64
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/polls'
 components:
   schemas:
     survey:
@@ -367,7 +415,7 @@ components:
         photoURL:
           type: string
           example: https://api.com.br/imagem_id
-    teachshot:
+    techshots:
       required:
       - title
       - duration
@@ -397,6 +445,20 @@ components:
         userId: 
           type: integer
           format: int64
+    polls:
+      required:
+      - userId
+      - techShotId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: string
+        techShotId:
+          type: string
+# Added by API Auto Mocking Plugin
 servers:
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/LucasASantos/EnTech/1.0.0
+    url: https://virtserver.swaggerhub.com/alexverly/EnTech/1.0.0
