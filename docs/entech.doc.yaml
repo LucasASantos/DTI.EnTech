@@ -211,8 +211,9 @@ paths:
       - name: "id"
         in: "path"
         required: true
-        type: "integer"
-        format: "int64"
+        schema:
+          type: integer
+          format: int64
       requestBody:
         content:
           application/json:
@@ -230,8 +231,9 @@ paths:
         - name: "id"
           in: "path"
           required: true
-          type: "integer"
-          format: "int64"
+          schema:
+            type: integer
+            format: int64
         responses:
           200:
             description: Successful requisition
@@ -250,8 +252,9 @@ paths:
       - name: "id"
         in: "path"
         required: true
-        type: "integer"
-        format: "int64"
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: Successful requisition
@@ -265,8 +268,9 @@ paths:
       - name: "surveyId"
         in: "path"
         required: true
-        type: "integer"
-        format: "int64"
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: Successful requisition
@@ -323,6 +327,13 @@ components:
           minLength: 2
           maxLength: 2
           example: 'MG'
+        numberWinners:
+          type: integer
+          format: "int64"
+        surveyEndDate:
+          type: string
+          format: date
+          example: "2019-05-26"
         photoUrl:
           type: string
           example: 'https://api.com.br/imagem_id'

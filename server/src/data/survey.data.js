@@ -6,6 +6,8 @@ module.exports= mongoose.model('Survey',{
     date: Date,
     startTime: Date,
     endTime: Date,
+    numberWinners:Number,
+    surveyEndDate: Date,
     address: String,
     city: String,
     userId: ObjectId,
