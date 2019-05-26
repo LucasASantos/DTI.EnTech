@@ -196,7 +196,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/techshot'
+              $ref: '#/components/schemas/techshots'
               
       responses:
         200:
@@ -218,7 +218,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/techshot'
+              $ref: '#/components/schemas/techshots'
       responses:
         200:
           description: Successful requisition
@@ -242,7 +242,7 @@ paths:
                 schema:
                   type: array
                   items:  
-                    $ref: '#/components/schemas/techshot'
+                    $ref: '#/components/schemas/techshots'
     get:
       tags:
       - "techshots"
@@ -279,22 +279,8 @@ paths:
               schema:
                 type: array
                 items:  
-                  $ref: '#/components/schemas/techshot'
-  /polls:
-    get:
-      tags:
-        - "Polls"
-      summary: Return a list of polls
-      operationId: getPoll
-      responses:
-        200:
-          description: Successful requisition
-          content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/polls'                    
+                  $ref: '#/components/schemas/techshots'
+  /polls:                
     post:
       tags:
         - "Polls"
@@ -308,7 +294,63 @@ paths:
       responses:
         200:
           description: Successful requisition
-      
+  /polls/{id}:
+    get:
+      tags:
+      - "Polls"
+      summary: Return a poll by ID
+      operationId: getPollById
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+      - "Polls"
+      summary: Update poll
+      operationId: updatePoll
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/polls'
+      responses:
+        200:
+          description: Successful requisition
+    delete:
+        tags:
+        - "Polls"
+        summary: Delete a poll
+        operationId: deletePollById
+        parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: integer
+            format: int64
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/polls'
 components:
   schemas:
     survey:
@@ -435,7 +477,8 @@ components:
         userId:
           type: string
         techShotId:
-        type: string
+          type: string
+# Added by API Auto Mocking Plugin
 servers:
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/LucasASantos/EnTech/1.0.0
+    url: https://virtserver.swaggerhub.com/alexverly/EnTech/1.0.0
