@@ -3,15 +3,12 @@ const userModel = require('../models/user.model');
 const userRepository = require('../data/user.data');
 const moment = require('moment');
 
-
 async function createUser(req, res) {
 
     try {
         var user = req.body;
 
         validateSchema(user, userModel);
-
-        user = formatDateUser(user);
 
         await userRepository.create(user);
 
@@ -49,8 +46,6 @@ async function updateUser(req, res) {
         var user = req.body;
 
         validateSchema(user, userModel);
-
-        user = formatDateUser(user);
 
         await userRepository.update({ "_id": req.params.id }, user)
 
