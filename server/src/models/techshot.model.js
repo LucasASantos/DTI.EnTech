@@ -32,7 +32,6 @@ const techshotSchema = {
     "required": [
         "title",
         "duration",
-        "keyords",
         "userId",
         "surveyId",
     ]
