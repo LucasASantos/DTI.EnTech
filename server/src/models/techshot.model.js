@@ -5,6 +5,14 @@ const techshotSchema = {
             "type": "string",
             "description": "Projetos da parceria PUC/DTI"
         },
+        "description": {
+            "type": "string",
+            "description": ""
+        },
+        "speaker":{
+            "type": "string",
+            "description": ""
+        },
         "duration": {
             "type": "integer",
             "description": "12345"
@@ -31,6 +39,8 @@ const techshotSchema = {
     },
     "required": [
         "title",
+        "",
+        ""
         "duration",
         "userId",
         "surveyId",

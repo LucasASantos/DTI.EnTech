@@ -3,6 +3,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports= mongoose.model('Techshot',{    
     title: String,
+    description: String,
+    speaker : String,
     duration: Number,
     keywords: [String],
     userId: ObjectId,
