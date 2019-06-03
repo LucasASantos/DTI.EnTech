@@ -21,7 +21,7 @@ async function createPoll(req, res) {
 
 async function getPollByTechShotId(req, res) {
     try {
-        var dados = await pollRepository.findById({"techShotId": req.params.techShotId});
+        var dados = await pollRepository.find({"techShotId": req.params.techshotid});
         res.json(dados);
     } catch (err) {
         if (err.name == 'CastError') {
@@ -33,7 +33,7 @@ async function getPollByTechShotId(req, res) {
 
 async function deletePollByTechShotId(req, res){
     try {
-        await pollRepository.deleteOne({"techShotId": req.params.techShotId});
+        await pollRepository.deleteOne({"techShotId": req.params.techshotid});
 
         res.status(200).send('Voto deletado com sucesso');
     } catch (err) {
@@ -50,7 +50,6 @@ function validateSchema(obj, model){
 }
 
 module.exports = {
-
     createPoll,
     getPollByTechShotId,
     deletePollByTechShotId
