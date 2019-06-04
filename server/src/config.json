@@ -1,7 +1,5 @@
 {
-    "OAuth":{
-        "Meetup":{
-            "Url": ""
-        }
+    "auth":{
+        "secret": "40a58f8c40e549bfa3ae3f601fcd3717"
     }
 }

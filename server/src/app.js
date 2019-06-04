@@ -14,6 +14,7 @@ class Startup {
     }
     connectDatabase() {
         mongoose.connect('mongodb+srv://entechapi:oVYXzsQvxJ22Znwn@cluster0-0v7e8.azure.mongodb.net/entech?retryWrites=true', { useNewUrlParser: true });
+        mongoose.set('useCreateIndex', true);
     }
 
 

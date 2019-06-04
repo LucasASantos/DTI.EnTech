@@ -3,7 +3,7 @@ const controller = require('../controllers/user.controller')
 
 route.get('/users', controller.listUser);
 route.get('/users/:id', controller.getUser);
-route.post('/users', controller.createUser);
+route.post('/users', controller.registerUser);
 route.put('/users/:id', controller.updateUser);
 route.delete('/users/:id', controller.deleteUser);
 

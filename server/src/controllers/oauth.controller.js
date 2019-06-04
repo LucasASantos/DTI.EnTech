@@ -1,5 +1,7 @@
 const axios = require('axios');
-
+const userRepository = require('../data/user.data');
+const userController = require('./user.controller');
+const authController = require('./auth.controller');
 
 function redirectOauthMeetup(req, res) {
 
@@ -9,10 +11,7 @@ function redirectOauthMeetup(req, res) {
 }
 
 async function getAccessByUserCode(req, res) {
-    console.log(req.query.code);
-
     var url = `https://secure.meetup.com/oauth2/access?client_id=20f5jmau76qqdo53cuo8tgohl3&client_secret=qi2l4fnl173scn5jcrleffouqr&grant_type=authorization_code&redirect_uri=http://localhost:8000/oauth&code=${req.query.code}`
-    var autorization;
     axios({
         method: 'post',
         url,
@@ -27,14 +26,56 @@ async function getAccessByUserCode(req, res) {
                 accept: 'application/json',
                 Authorization: `Bearer ${response.data.access_token}`
             }
-        }).then((resp2) => {
-            console.log(resp2.data)
-            res.send(`<img src="${resp2.data.photo.photo_link}">`)
+        }).then(async (userResponse) => {
+            userResponse = userResponse.data;
+            var user = await userRepository.findOne({ "email": userResponse.email });
+            if (!user) {
+                console.log(userResponse);
+
+                user = await userController.createNewUser({
+                    name: userRepository.name,
+                    email: userResponse.email,
+                    status: userResponse.status,
+                    photoURL: userResponse.photo.photo_link,
+                    refenceId: userResponse.id,
+                    metodLogin: 'Meetup'
+                });
+            }
+
+            console.log(user);
+            console.log(userResponse);
+            
+
+            if (user.refenceId === userResponse.Id) {
+                 res.status(400).send('Falha na autenticação ');
+            }
+
+            res.json({ user, token: authController.generateToken(user) })
         })
     });
+}
 
+async function registerUser(userResponse) {
+    console.log(userResponse);
 
+    var user = await userController.createNewUser({
+        name: userRepository.name,
+        email: userResponse.email,
+        status: userResponse.status,
+        photoURL: userResponse.photo.photo_link,
+        refenceId: userResponse.id,
+        metodLogin: "Meetup"
+    });
 
+    return res.json({ user, token: authController.generateToken(user) });
+}
+
+async function authenicateUser(user, userResponse) {
+    if (user.method != "Meetup" || user.refenceId != userResponse.Id) {
+        return res.status(400).send('Falha na autenticação ');
+    }
+
+    return res.json({ user, token: authController.generateToken(user) })
 }
 
 module.exports = {

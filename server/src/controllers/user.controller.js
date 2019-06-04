@@ -1,22 +1,37 @@
 const jsonSchema = require('jsonschema');
 const userModel = require('../models/user.model');
 const userRepository = require('../data/user.data');
+const authController = require('./auth.controller')
 const moment = require('moment');
 
-async function createUser(req, res) {
+async function registerUser(req, res) {
 
     try {
         var user = req.body;
 
-        validateSchema(user, userModel);
+        if (await userRepository.findOne({ "email": user.email }))
+            return res.status(400).send('Usuário já cadastrado com esse e-mail.');
 
-        await userRepository.create(user);
+        user = await createNewUser(user);
 
-        res.status(200).send('Usuário criado com sucesso!');
+        res.status(200).send({ message: 'Usuário criado com sucesso!', user, token: authController.generateToken(user) });
 
     } catch (err) {
-        res.status(400).send('Erro ao cadastrar usuário')
+        res.status(400).send('Erro ao cadastrar usuário');
     }
+}
+
+async function createNewUser(user) {
+    
+    validateSchema(user, userModel);
+
+    await userRepository.create(user);
+
+    user = await userRepository.findOne({ email: user.email });
+
+    user.password = undefined;
+
+    return user;
 }
 
 async function listUser(req, res) {
@@ -78,9 +93,10 @@ function validateSchema(obj, model) {
 }
 
 module.exports = {
-    createUser: createUser,
-    listUser: listUser,
-    getUser: getUser,
-    updateUser: updateUser,
-    deleteUser: deleteUser
+    registerUser,
+    listUser,
+    getUser,
+    updateUser,
+    deleteUser,
+    createNewUser
 }
