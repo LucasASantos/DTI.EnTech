@@ -1,7 +1,8 @@
 const jsonSchema = require('jsonschema');
 const techsohtModel = require('../models/techshot.model');
 const techshotRepository = require('../data/techshot.data');
-const moment = require('moment');
+const pollRepository = require('../data/poll.data');
+
 
 
 async function createTechshot(req, res) {
@@ -25,6 +26,7 @@ async function listTechshotBySurveyId(req,res) {
         var dados = await techshotRepository.find({
             "surveyId": req.params.surveyId,
         });
+        
         res.json(dados);
     }catch(err){
         console.log(err);
@@ -78,6 +80,10 @@ function validateSchema(obj, model){
     if (result.errors.length > 0) {
         res.status(400).send('Erro no formato do objeto JSON');
     }
+}
+
+async function countPollByTechshot(techShotId){
+    return await pollRepository.find({"techShotId": techShotId}).length
 }
 
 module.exports = {

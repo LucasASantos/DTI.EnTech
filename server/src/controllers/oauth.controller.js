@@ -42,11 +42,11 @@ async function getAccessByUserCode(req, res) {
                 });
             }
 
-            console.log(user);
-            console.log(userResponse);
+            console.log(typeof(user.refenceId));
+            console.log(typeof(userResponse.id));
             
 
-            if (user.refenceId === userResponse.Id) {
+            if (user.refenceId == userResponse.Id) {
                  res.status(400).send('Falha na autenticação ');
             }
 

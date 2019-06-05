@@ -1,7 +1,6 @@
 const jsonSchema = require('jsonschema');
 const pollModel = require('../models/poll.model');
 const pollRepository = require('../data/poll.data');
-const moment = require('moment');
 
 async function createPoll(req, res) {
     
@@ -33,7 +32,14 @@ async function getPollByTechShotId(req, res) {
 
 async function deletePollByTechShotId(req, res){
     try {
-        await pollRepository.deleteOne({"techShotId": req.params.techshotid});
+        var poll = req.body;
+    
+        validateSchema(poll, pollModel);
+
+        await pollRepository.deleteOne({
+            "techShotId": poll.techShotId,
+            "userId": poll.userId
+        });
 
         res.status(200).send('Voto deletado com sucesso');
     } catch (err) {
@@ -52,5 +58,5 @@ function validateSchema(obj, model){
 module.exports = {
     createPoll,
     getPollByTechShotId,
-    deletePollByTechShotId
+    deletePollByTechShotId,
 }
