@@ -11,6 +11,8 @@ class Startup {
 
         this.middlewares();
         this.routes();
+
+        this.startServices();
     }
     connectDatabase() {
         mongoose.connect('mongodb+srv://entechapi:oVYXzsQvxJ22Znwn@cluster0-0v7e8.azure.mongodb.net/entech?retryWrites=true', { useNewUrlParser: true });
@@ -40,6 +42,13 @@ class Startup {
     requireArchives(pasta, app) {
         require("fs").readdirSync(require('path').join(__dirname, pasta)).forEach(function (file) {
             app.use(require('./' + pasta + '/' + file.replace('.js', "")))
+        });
+    }
+    
+    startServices(){
+        var pasta = 'jobs'
+        require("fs").readdirSync(require('path').join(__dirname, pasta)).forEach(function (file) {
+            require('./' + pasta + '/' + file.replace('.js', "")).start();
         });
     }
 }

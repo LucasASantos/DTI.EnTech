@@ -41,16 +41,12 @@ async function getAccessByUserCode(req, res) {
                     metodLogin: 'Meetup'
                 });
             }
-
-            console.log(typeof(user.refenceId));
-            console.log(typeof(userResponse.id));
             
-
-            if (user.refenceId == userResponse.Id) {
+            if (user.refenceId != userResponse.id) {
                  res.status(400).send('Falha na autenticação ');
             }
 
-            res.json({ user, token: authController.generateToken(user) })
+            res.redirect().json({ user, token: authController.generateToken(user) })
         })
     });
 }
@@ -64,7 +60,8 @@ async function registerUser(userResponse) {
         status: userResponse.status,
         photoURL: userResponse.photo.photo_link,
         refenceId: userResponse.id,
-        metodLogin: "Meetup"
+        metodLogin: "Meetup",
+        type: "Adm"
     });
 
     return res.json({ user, token: authController.generateToken(user) });
