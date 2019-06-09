@@ -1,0 +1,464 @@
+openapi: 3.0.0
+info:
+  title: "EnTech"
+  description: 'EnTech API'
+  version: "1.0.0"
+tags: 
+- name: Surveys
+- name: Users
+- name: Techshots
+- name: Polls
+paths:
+  /surveys:
+    get:
+      tags: 
+        - "Surveys"
+      operationId: getEnquetes
+      summary: Return a list of Surveys
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/survey'
+          description: OK
+        '400': 
+          description: Erro interno
+    post:
+      tags: 
+          - "Surveys"
+      operationId: postEnquetes
+      summary: Create a Survey
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/survey'
+      responses:
+        '201':
+          description: Enquete criada
+        '400': 
+          description: Erro interno
+  /surveys/{surveysId}:
+      put:
+        tags: 
+            - "Surveys"
+        operationId: putEnquetes
+        summary: Update survey
+        parameters:
+          - name: surveysId
+            in: path
+            description: Identifier for Survey
+            required: true
+            schema:
+              type: integer
+              format: int64
+        requestBody: 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/survey'
+        responses:
+          '200':
+            description: Enquete alterada
+          '400': 
+            description: Erro interno
+          '404': 
+            description: Enquete não encontrada
+      delete:
+        tags: 
+            - "Surveys"
+        operationId: deleteEnquetes
+        summary: Delete survey
+        parameters:
+          - name: surveysId
+            in: path
+            description: Identifier for Survey
+            required: true
+            schema:
+              type: integer
+              format: int64
+        responses:
+          '200':
+            description: Enquete deletada
+          '400': 
+            description: Erro interno
+          '404': 
+            description: Enquete não encontrada 
+      get:
+        tags: 
+          - "Surveys"
+        operationId: getEnquetesById
+        summary: Return a survey 
+        parameters:
+          - name: surveysId
+            in: path
+            description: Identifier for Survey
+            required: true
+            schema:
+              type: integer
+              format: int64
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/survey'
+            description: OK
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: Return a list of users
+      operationId: getUser
+      responses:
+        200:
+          description: Successful requisition
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/users'  
+    post:
+      tags:
+        - "Users"
+      summary: Add user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users'
+      responses:
+        200:
+          description: Successful requisition
+  /users/{userId}:
+    get:
+      tags:
+        - "Users"
+      summary: Find an user by ID
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        description: Return an user ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    put:
+      tags:
+        - "Users"
+      summary: Update an user by ID
+      operationId: updateUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Update an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+          200:
+            description: Successful requisition
+    delete:
+      tags:
+        - "Users"
+      summary: Delete an user by ID
+      operationId: deleteUserById
+      parameters: 
+      - name: userId
+        in: path
+        description: Delete an user by ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+  /techshots:
+    post:
+      tags:
+      - "Techshots"
+      summary: Create techshots
+      operationId: insettechshot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/techshots'
+              
+      responses:
+        200:
+          description: Successful requisition
+  /techshots/{id}:
+    put:
+      tags:
+      - "Techshots"
+      summary: Update techshots
+      operationId: updateTechshot
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/techshots'
+      responses:
+        200:
+          description: Successful requisition
+    delete:
+        tags:
+        - "Techshots"
+        summary: Delet a techshots
+        operationId: deletetechshotById
+        parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: integer
+            format: int64
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/techshots'
+    get:
+      tags:
+      - "Techshots"
+      summary: Return a techshots by id
+      operationId: gettechshotById
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+  /techshots/{surveyId}:
+    get:
+      tags:
+      - "Techshots"
+      summary: Return list of techshots
+      operationId: gettechshotByUserId
+      parameters:
+      - name: "surveyId"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:  
+                  $ref: '#/components/schemas/techshots'
+  /polls:                
+    post:
+      tags:
+        - "Polls"
+      summary: Add poll
+      operationId: addPoll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/polls'
+      responses:
+        200:
+          description: Successful requisition
+  /polls/{techShotId}:
+    get:
+      tags:
+      - "Polls"
+      summary: Return a poll by ID
+      operationId: getPollByTechShotId
+      parameters:
+      - name: "techShotId"
+        in: "path"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successful requisition
+    delete:
+        tags:
+        - "Polls"
+        summary: Delete a poll by ID
+        operationId: deletePollByTechShotId
+        parameters:
+        - name: "techShotId"
+          in: "path"
+          required: true
+          schema:
+            type: integer
+            format: int64
+        responses:
+          200:
+            description: Successful requisition
+            content:
+              aplication/json:
+                schema:
+                  type: array
+                  items:  
+                    $ref: '#/components/schemas/polls'
+components:
+  schemas:
+    survey:
+      type: object
+      required: 
+        - title
+        - date
+        - startTime
+        - endTime
+        - address
+        - city
+        - state
+        - userId
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123456'
+        title:
+          type: string
+          example: 'Projetos da parceria PUC/DTI'
+        date:
+          type: string
+          format: date
+          example: '2019-05-14'
+        startTime:
+          type: string
+          format: date-time
+          example: 'T13:00:00'
+        endTime:
+          type: string
+          format: date-time
+          example: 'T15:00:00'
+        address:
+          type: string
+          example: 'Rua dos Bobos, Nº 0'
+        city:
+          type: string
+          example: 'Belo Horizonte'
+        state:
+          type: string
+          minLength: 2
+          maxLength: 2
+          example: 'MG'
+        numberWinners:
+          type: integer
+          format: "int64"
+        surveyEndDate:
+          type: string
+          format: date
+          example: "2019-05-26"
+        photoUrl:
+          type: string
+          example: 'https://api.com.br/imagem_id'
+        userId: 
+          type: integer
+          format: int64
+    users:
+      required:
+      - name
+      - type
+      - email
+      - password
+      - status
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Alex Martins
+        type:
+          type: string
+          example: Organizador
+        email:
+          type: string
+          example: alex@entech.com.br
+        password:
+          type: string
+          example: tecweb2019
+        photoURL:
+          type: string
+          example: https://api.com.br/imagem_id
+    techshots:
+      required:
+      - title
+      - duration
+      - surveyId
+      - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          example: Introdução a React
+        duration:
+          type: integer
+        photoUrl:
+          type: string
+          example: https://api.com.br/imagem_id
+        keywords:
+          type: array
+          example: ["react", "front-end", "desenvolvimento"]
+          items:
+            type: string
+        surveyId: 
+          type: integer
+          format: int64
+        userId: 
+          type: integer
+          format: int64
+    polls:
+      required:
+      - userId
+      - techShotId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: string
+        techShotId:
+          type: string
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/alexverly/EnTech/1.0.0
