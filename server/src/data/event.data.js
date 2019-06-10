@@ -17,5 +17,13 @@ module.exports= mongoose.model('Event',{
         duration: Number,
         keywords: [String],
     }],
-    photoURL: String
+    photoURL: String,
+    comments:[{
+        userId:ObjectId,
+        name: String,
+        comment:String,
+    }],
+    like: {count: Number, likes:[{
+        userId:ObjectId,
+    }]}
 });
