@@ -8,6 +8,6 @@ module.exports = (req,res,next)=>{
     // var token = req.headers.authorization;
     // jwt.verify(token, secret,(err, decoded)=>{
     //     if(err) return res.status(401).send({message: 'Erro de autenticação: token inválido', headers: req.headers, token});
-    //     next();
+         next();
     // });
 }
