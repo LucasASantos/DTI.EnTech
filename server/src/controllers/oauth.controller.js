@@ -6,7 +6,7 @@ const authController = require('./auth.controller');
 function redirectOauthMeetup(req, res) {
     var url = `https://secure.meetup.com/oauth2/authorize?client_id=20f5jmau76qqdo53cuo8tgohl3&response_type=code&redirect_uri=http://localhost:3000/oauth`
 
-    res.redirect(url);
+    res.send({url});
 }
 
 async function getAccessByUserCode(req, res) {
