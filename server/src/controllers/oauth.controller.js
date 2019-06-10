@@ -5,13 +5,13 @@ const authController = require('./auth.controller');
 
 function redirectOauthMeetup(req, res) {
 
-    var url = `https://secure.meetup.com/oauth2/authorize?client_id=20f5jmau76qqdo53cuo8tgohl3&response_type=code&redirect_uri=http://localhost:8000/oauth`
+    var url = `https://secure.meetup.com/oauth2/authorize?client_id=20f5jmau76qqdo53cuo8tgohl3&response_type=code&redirect_uri=http://localhost:3000/oauth`
 
     res.redirect(url);
 }
 
 async function getAccessByUserCode(req, res) {
-    var url = `https://secure.meetup.com/oauth2/access?client_id=20f5jmau76qqdo53cuo8tgohl3&client_secret=qi2l4fnl173scn5jcrleffouqr&grant_type=authorization_code&redirect_uri=http://localhost:8000/oauth&code=${req.query.code}`
+    var url = `https://secure.meetup.com/oauth2/access?client_id=20f5jmau76qqdo53cuo8tgohl3&client_secret=qi2l4fnl173scn5jcrleffouqr&grant_type=authorization_code&redirect_uri=http://localhost:3000/oauth&code=${req.query.code}`
     axios({
         method: 'post',
         url,
