@@ -21,6 +21,21 @@ async function createTechshot(req, res) {
     }
 }
 
+const getPolls = async (techShotId)=>{
+    return await pollRepository.find({})
+}
+
+const mapPollsToTechShot = (techShots, polls) => {
+    return techShots.map(ts => {
+        var pollsFilter = polls.filter(poll => poll.techShotId == ts.id);
+
+        return {
+            ...ts._doc,
+            countPolls: pollsFilter.length
+        }
+    })
+}
+
 async function listTechshotBySurveyId(req, res) {
     try {
         var techshots = await techshotRepository
@@ -28,7 +43,11 @@ async function listTechshotBySurveyId(req, res) {
                 "surveyId": req.params.surveyId,
             });
 
-        res.json(techshots);
+        var polls = await getPolls();
+
+        var tss = mapPollsToTechShot(techshots,polls);
+
+        res.json(tss);
     } catch (err) {
         console.log(err);
         res.status(400).send(err.message);

@@ -10,6 +10,7 @@ async function createSurvey(req, res) {
         var survey = req.body;
     
         validateSchema(survey, surveyModel);
+        survey.process = false
 
         survey = formatDateSurvey(survey);
         
@@ -24,7 +25,9 @@ async function createSurvey(req, res) {
 
 async function listSurveys(req,res) {
     try{
-        var dados = await surveyRepository.find({});
+        var dados = await surveyRepository.find({
+            //process: false
+        });
         res.json(dados);
     }catch(err){
         console.log(err);

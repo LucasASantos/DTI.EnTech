@@ -46,8 +46,10 @@ const techShotOrganize = async () => {
         if (!survey.process && Date.parse(survey.surveyEndDate) <= Date.now()) {
 
             var techShots = await getTechShots(survey._id);
+            console.log(techShots);
+            
 
-            if (techShots) {
+            if (techShots[0] && techShots.length > survey.numberWinners) {
                 var polls = await getPolls();
 
                 var techshotPolls = await mapPollsToTechShot(techShots, polls);
@@ -83,10 +85,15 @@ const techShotOrganize = async () => {
 }
 
 const job = new CronJob('* * 0 * * *', async () => {
-    console.log("Job start");
-    surveys = await surveyRepository.find();
-    await techShotOrganize();
-    console.log("Job finished ");
+    try {
+        console.log("Job start");
+        surveys = await surveyRepository.find();
+        await techShotOrganize();
+        console.log("Job finished ");
+    } catch (err) {
+        console.log(err);
+        
+    }
 
 
 }, null, false, 'America/Sao_Paulo');
