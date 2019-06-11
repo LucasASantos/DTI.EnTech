@@ -45,7 +45,7 @@ async function getAccessByUserCode(req, res) {
                  res.status(400).send('Falha na autenticação ');
             }
 
-            res.redirect().json({ user, token: authController.generateToken(user) })
+            res.json({ user, token: authController.generateToken(user) })
         })
     });
 }
