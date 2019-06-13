@@ -26,11 +26,7 @@ async function createSurvey(req, res) {
 async function listSurveys(req,res) {
     try{
         var dados = await surveyRepository.find({
-<<<<<<< HEAD
             process: false
-=======
-            //process: false
->>>>>>> 3ba8c54066e06292796c9e8dc7039dea052782e7
         });
         res.json(dados);
     }catch(err){
