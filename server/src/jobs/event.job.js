@@ -84,7 +84,7 @@ const techShotOrganize = async () => {
     });
 }
 
-const job = new CronJob('* * 0 * * *', async () => {
+const job = new CronJob('* 0 0 * * *', async () => {
     try {
         console.log("Job start");
         surveys = await surveyRepository.find();
