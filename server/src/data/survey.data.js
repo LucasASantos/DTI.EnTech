@@ -12,5 +12,6 @@ module.exports= mongoose.model('Survey',{
     city: String,
     userId: ObjectId,
     state: {type: String, minlength: 2, maxlength:2},
-    photoURL: String
+    photoURL: String,
+    process: Boolean
 });
